@@ -21,7 +21,7 @@ const getUserList = (req, res) => {
 
 const createUser = (req, res) => {
     if (!req.body.name) {
-        res.sendStatus(400)
+        res.status(400).send()
         return
     }
     const newId = nextId++
@@ -33,7 +33,7 @@ const createUser = (req, res) => {
 const getUserById = (req, res) => {
     const user = findUserByUserIdParam(req)
     if (!user) {
-        res.sendStatus(404)
+        res.status(404).send()
         return
     }
     res.json(user)
