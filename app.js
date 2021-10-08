@@ -70,16 +70,25 @@ const methodNotAllowed = (allowedMethods) => {
     }
 }
 
+const options = (allowedMethods) => {
+    const allowedHeaderValue = allowedMethods.join(', ').toUpperCase()
+    return (req, res) => {
+        res.header('Allowed', allowedHeaderValue).status(204).send()
+    }
+}
+
 app.route('/users')
     .get(getUserList)
     .post(createUser)
-    .all(methodNotAllowed(['get', 'post']))
+    .options(options(['options', 'get', 'post']))
+    .all(methodNotAllowed(['options', 'get', 'post']))
 
 app.route('/users/:userId')
     .get(getUserById)
     .put(updateUserById)
     .delete(deleteUserById)
-    .all(methodNotAllowed(['get', 'put', 'delete']))
+    .options(options(['options', 'get', 'put', 'delete']))
+    .all(methodNotAllowed(['options', 'get', 'put', 'delete']))
 
 app.listen(port, () => {
     console.log(`HTTP example app listening at http://localhost:${port}`)
