@@ -66,14 +66,14 @@ const deleteUserById = (req, res) => {
 const methodNotAllowed = (allowedMethods) => {
     const allowedHeaderValue = allowedMethods.join(', ').toUpperCase()
     return (req, res) => {
-        res.header('Allowed', allowedHeaderValue).status(405).send()
+        res.header('Allow', allowedHeaderValue).status(405).send()
     }
 }
 
 const options = (allowedMethods) => {
     const allowedHeaderValue = allowedMethods.join(', ').toUpperCase()
     return (req, res) => {
-        res.header('Allowed', allowedHeaderValue).status(204).send()
+        res.header('Allow', allowedHeaderValue).status(204).send()
     }
 }
 
